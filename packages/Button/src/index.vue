@@ -1,11 +1,11 @@
 <template>
-  <div class="w-button">
+  <button class="">
     <slot></slot>
-  </div>
+  </button>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, inject } from "vue";
 
 export default defineComponent({
   name: "w-button",
@@ -13,8 +13,18 @@ export default defineComponent({
     type: {
       type: String,
       default: "default",
+      values: ["default", "success", "warning", "error"]
     },
-
+  },
+  setup(){
+    const size = inject("size");
+    const color = inject("color");
   }
 })
 </script>
+
+<style lang="less" scoped>
+.w-button{
+
+}
+</style>

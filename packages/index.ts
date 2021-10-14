@@ -1,6 +1,7 @@
 // 导入button组件
-import WButton from './Button';
-import { App, Plugin } from "vue";
+import WButton from './Button/index';
+import { App } from "vue";
+import { Options } from "./types";
 
 // 组件列表
 const components = [
@@ -8,16 +9,11 @@ const components = [
 ]
 
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，那么所有的组件都会被注册
-const install = (Vue: App, opts: Plugin) => {
-    // 判断是否安装
-    if (install.installed) return
+const install = (app: App, opts: Options = { color: "#1890ff", size: "small" }) => {
     // 遍历注册全局组件
-    components.map(component => Vue.component(component.name, component))
-}
-
-// 判断是否是直接引入文件
-if (typeof window !== 'undefined' && window.Vue) {
-    install(window.Vue)
+    components.map(component => app.component(component.name, component));
+    app.provide("color", opts.color);
+    app.provide("size", opts.size);
 }
 
 export default {
